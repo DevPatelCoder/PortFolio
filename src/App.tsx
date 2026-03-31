@@ -3,28 +3,148 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useSpring, useMotionValue } from 'motion/react';
 import { 
   Terminal, 
-  UserSearch, 
   School, 
   Award, 
   Mail, 
   Phone, 
   Github, 
   Linkedin, 
-  ExternalLink,
-  ChevronRight,
   Brain,
   Cpu,
-  Database,
-  Eye,
   Menu,
-  X,
-  MapPin
+  X
 } from 'lucide-react';
 import { cn } from './lib/utils';
+
+// --- Lumina Animation Components ---
+
+const CustomCursor = () => {
+  const cursorX = useMotionValue(-100);
+  const cursorY = useMotionValue(-100);
+  
+  const springConfig = { damping: 25, stiffness: 700 };
+  const cursorXSpring = useSpring(cursorX, springConfig);
+  const cursorYSpring = useSpring(cursorY, springConfig);
+
+  useEffect(() => {
+    const moveCursor = (e: MouseEvent) => {
+      cursorX.set(e.clientX);
+      cursorY.set(e.clientY);
+    };
+    window.addEventListener("mousemove", moveCursor);
+    return () => window.removeEventListener("mousemove", moveCursor);
+  }, [cursorX, cursorY]);
+
+  return (
+    <motion.div
+      className="fixed top-0 left-0 w-8 h-8 bg-white rounded-full mix-blend-difference pointer-events-none z-[9999] hidden md:flex items-center justify-center"
+      style={{
+        translateX: cursorXSpring,
+        translateY: cursorYSpring,
+        x: "-50%",
+        y: "-50%",
+      }}
+    >
+      <div className="w-1 h-1 bg-black rounded-full" />
+    </motion.div>
+  );
+};
+
+const Magnetic = ({ children }: { children: React.ReactNode; key?: React.Key }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  
+  const springConfig = { damping: 15, stiffness: 150 };
+  const xSpring = useSpring(x, springConfig);
+  const ySpring = useSpring(y, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    if (!ref.current) return;
+    const { left, top, width, height } = ref.current.getBoundingClientRect();
+    const centerX = left + width / 2;
+    const centerY = top + height / 2;
+    const distanceX = clientX - centerX;
+    const distanceY = clientY - centerY;
+    
+    x.set(distanceX * 0.35);
+    y.set(distanceY * 0.35);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ x: xSpring, y: ySpring }}
+      className="inline-block"
+    >
+      {children}
+    </motion.div>
+  );
+};
+
+const TextReveal = ({ text, className }: { text: string; className?: string }) => {
+  const words = text.split(" ");
+  return (
+    <div className={cn("overflow-hidden flex flex-wrap", className)}>
+      {words.map((word, i) => (
+        <div key={i} className="overflow-hidden mr-[0.2em] mb-[0.1em]">
+          <motion.span
+            initial={{ y: "100%" }}
+            whileInView={{ y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ 
+              duration: 0.8, 
+              delay: i * 0.05, 
+              ease: [0.33, 1, 0.68, 1] 
+            }}
+            className="inline-block"
+          >
+            {word}
+          </motion.span>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+// --- Animation Variants ---
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const slideInLeft = {
+  hidden: { opacity: 0, x: -50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const slideInRight = {
+  hidden: { opacity: 0, x: 50 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    }
+  }
+};
 
 // --- Components ---
 
@@ -40,28 +160,38 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 glass-nav border-b border-outline-variant/10">
       <div className="flex items-center justify-between px-6 h-16 w-full max-w-screen-xl mx-auto">
-        <div className="flex items-center gap-2">
-          <Terminal className="w-6 h-6 text-primary-container" />
-          <span className="text-xl font-bold tracking-tighter text-on-surface font-display">DEV PATEL</span>
-        </div>
+        <Magnetic>
+          <motion.div 
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center gap-2 cursor-pointer"
+          >
+            <Terminal className="w-6 h-6 text-primary-container" />
+            <span className="text-xl font-bold tracking-tighter text-on-surface font-display">DEV PATEL</span>
+          </motion.div>
+        </Magnetic>
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8 font-sans text-[10px] tracking-[0.3em] uppercase font-bold">
           {navLinks.map((link) => (
-            <a 
-              key={link.name}
-              href={link.href} 
-              className="text-on-surface-variant hover:text-primary transition-colors duration-300"
-            >
-              {link.name}
-            </a>
+            <Magnetic key={link.name}>
+              <motion.a 
+                whileHover={{ y: -2, color: "var(--primary)" }}
+                href={link.href} 
+                className="text-on-surface-variant transition-colors duration-300 block p-2"
+              >
+                {link.name}
+              </motion.a>
+            </Magnetic>
           ))}
-          <a 
-            href="#contact" 
-            className="text-primary-container hover:text-primary transition-colors duration-300"
-          >
-            Contact
-          </a>
+          <Magnetic>
+            <motion.a 
+              whileHover={{ y: -2, color: "var(--primary)" }}
+              href="#contact" 
+              className="text-primary-container transition-colors duration-300 block p-2"
+            >
+              Contact
+            </motion.a>
+          </Magnetic>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -80,14 +210,14 @@ const Navbar = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="md:hidden bg-surface border-b border-outline-variant/10 px-6 py-8 space-y-6 flex flex-col font-sans text-[10px] tracking-[0.3em] uppercase font-bold"
+            className="md:hidden bg-surface border-b border-outline-variant/10 px-6 py-8 space-y-6 flex flex-col font-sans text-[10px] tracking-[0.3em] uppercase font-bold shadow-2xl"
           >
             {navLinks.map((link) => (
               <a 
                 key={link.name}
                 href={link.href} 
                 onClick={() => setIsOpen(false)}
-                className="text-on-surface-variant"
+                className="text-on-surface-variant hover:text-primary transition-colors block"
               >
                 {link.name}
               </a>
@@ -95,7 +225,7 @@ const Navbar = () => {
             <a 
               href="#contact" 
               onClick={() => setIsOpen(false)}
-              className="text-primary-container"
+              className="text-primary-container hover:text-primary transition-colors block"
             >
               Contact
             </a>
@@ -111,26 +241,38 @@ const Hero = () => {
     <section className="min-h-screen flex flex-col justify-center items-center px-6 relative overflow-hidden bg-surface-container-lowest">
       {/* Background Blobs */}
       <div className="absolute inset-0 opacity-20 pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary-container rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-primary rounded-full blur-[120px]"></div>
+        <motion.div 
+          animate={{ rotate: 360, scale: [1, 1.1, 1] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          className="absolute top-1/4 left-1/4 w-[30rem] h-[30rem] bg-primary-container rounded-full blur-[120px]"
+        />
+        <motion.div 
+          animate={{ rotate: -360, scale: [1, 1.2, 1] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-1/4 right-1/4 w-[30rem] h-[30rem] bg-primary rounded-full blur-[120px]"
+        />
       </div>
 
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="max-w-4xl w-full text-center z-10 space-y-8"
+        className="max-w-4xl w-full text-center z-10 space-y-8 flex flex-col items-center"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/15">
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/15 cursor-default mt-16"
+        >
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-          <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-on-surface-variant font-bold">Available for Research Roles</span>
-        </div>
+          <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-on-surface-variant font-bold">Available for job</span>
+        </motion.div>
 
-        <h1 className="text-6xl md:text-9xl font-bold tracking-tighter text-on-surface leading-[0.85] hero-text-glow">
-          DEV PATEL
-        </h1>
+        <TextReveal 
+          text="DEV PATEL" 
+          className="text-6xl md:text-[8rem] justify-center font-bold tracking-tighter text-on-surface leading-[0.85] hero-text-glow"
+        />
 
-        <p className="text-2xl md:text-3xl font-display text-primary font-light tracking-tight">
+        <p className="text-2xl md:text-3xl font-display text-primary font-light tracking-tight mt-4">
           AI/ML Engineer & Computer Vision Specialist
         </p>
 
@@ -139,29 +281,37 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
-          <a 
-            href="#work" 
-            className="px-10 py-4 neural-gradient text-white font-display font-bold rounded-md hover:shadow-[0_0_30px_rgba(0,112,243,0.3)] transition-all duration-300 scale-100 hover:scale-[1.02] active:scale-95"
-          >
-            View My Work
-          </a>
-          <a 
-            href="#contact" 
-            className="px-10 py-4 bg-transparent border border-outline-variant/30 text-on-surface font-display font-bold rounded-md hover:bg-surface-container-high transition-all duration-300"
-          >
-            Contact Me
-          </a>
+          <Magnetic>
+            <motion.a 
+              href="#work" 
+              className="px-10 py-4 neural-gradient text-white font-display font-bold rounded-full hover:shadow-[0_0_30px_rgba(0,112,243,0.3)] transition-shadow block"
+            >
+              View My Work
+            </motion.a>
+          </Magnetic>
+          <Magnetic>
+            <motion.a 
+              href="#contact" 
+              className="px-10 py-4 bg-transparent border border-outline-variant/30 text-on-surface font-display font-bold rounded-full hover:bg-surface-container-high transition-colors block"
+            >
+              Contact Me
+            </motion.a>
+          </Magnetic>
         </div>
 
         <div className="flex items-center justify-center gap-8 pt-8 opacity-60">
-          <a href="#" className="hover:text-primary transition-colors duration-300 flex items-center gap-2">
-            <Github className="w-5 h-5" />
-            <span className="text-[10px] uppercase tracking-widest font-bold">GitHub</span>
-          </a>
-          <a href="#" className="hover:text-primary transition-colors duration-300 flex items-center gap-2">
-            <Linkedin className="w-5 h-5" />
-            <span className="text-[10px] uppercase tracking-widest font-bold">LinkedIn</span>
-          </a>
+          <Magnetic>
+            <motion.a whileHover={{ color: "var(--primary)" }} href="#" className="flex items-center gap-2 p-2">
+              <Github className="w-5 h-5 pointer-events-none" />
+              <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">GitHub</span>
+            </motion.a>
+          </Magnetic>
+          <Magnetic>
+            <motion.a whileHover={{ color: "var(--primary)" }} href="#" className="flex items-center gap-2 p-2">
+              <Linkedin className="w-5 h-5 pointer-events-none" />
+              <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">LinkedIn</span>
+            </motion.a>
+          </Magnetic>
         </div>
       </motion.div>
     </section>
@@ -172,35 +322,42 @@ const About = () => {
   const skills = ["Python", "OCR", "YOLO", "Computer Vision", "Machine Learning", "Deep Learning", "Artificial Intelligence"];
 
   return (
-    <section className="py-32 px-6 bg-surface" id="about">
+    <section className="py-32 px-6 bg-surface overflow-hidden" id="about">
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
         {/* About Me */}
-        <div className="lg:col-span-7 space-y-8">
-          <div className="space-y-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="lg:col-span-7 space-y-8"
+        >
+          <motion.div variants={slideInLeft} className="space-y-4">
             <span className="text-primary font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Identity</span>
-            <h2 className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter">About Me</h2>
-          </div>
+            <TextReveal text="About Me" className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter" />
+          </motion.div>
 
-          <div className="prose prose-invert max-w-none text-on-surface-variant font-sans leading-relaxed space-y-6">
+          <motion.div variants={slideInLeft} className="prose prose-invert max-w-none text-on-surface-variant font-sans leading-relaxed space-y-6">
             <p className="text-xl">
               Currently pursuing a <span className="text-on-surface font-semibold">Master of Computer Science at Concordia University</span> (GPA 3.3). My journey is fueled by a dual passion for technical precision and human-centric assistive technology.
             </p>
             <p>
               With a solid foundation from my B.Tech at Charusat (9.5 CGPA), I specialize in AI/ML, Computer Vision, and Deep Learning. Beyond the code, I am a national-level basketball player, a background that instills discipline, teamwork, and a competitive drive in every research lab and development sprint I lead.
             </p>
-          </div>
+          </motion.div>
 
           {/* Skills Pills */}
-          <div className="pt-8 space-y-6">
+          <motion.div variants={fadeInUp} className="pt-8 space-y-6">
             <h3 className="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant/60">Core Technologies</h3>
             <div className="flex flex-wrap gap-3">
               {skills.map((skill) => (
-                <span 
-                  key={skill}
-                  className="px-5 py-2 bg-surface-container-highest rounded-full text-[10px] font-sans font-bold uppercase tracking-widest text-primary border border-outline-variant/10"
-                >
-                  {skill}
-                </span>
+                <Magnetic key={skill}>
+                  <motion.span 
+                    className="px-5 py-2 bg-surface-container-highest rounded-full text-[10px] font-sans font-bold uppercase tracking-widest text-primary border border-outline-variant/10 cursor-default block"
+                  >
+                    {skill}
+                  </motion.span>
+                </Magnetic>
               ))}
             </div>
             <div className="pt-2">
@@ -208,16 +365,26 @@ const About = () => {
                 Certifications: <span className="text-on-surface">Machine Learning, Artificial Intelligence</span>
               </p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Education Cards */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="space-y-4">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="lg:col-span-5 space-y-6"
+        >
+          <motion.div variants={slideInRight} className="space-y-4">
             <span className="text-primary font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Education</span>
-          </div>
+          </motion.div>
           
-          <div className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/20 transition-all duration-300 group">
+          <motion.div 
+            variants={slideInRight}
+            whileHover={{ scale: 1.02, x: -10 }}
+            className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/20 transition-all duration-300 group cursor-default"
+          >
             <div className="flex justify-between items-start mb-4">
               <School className="w-8 h-8 text-primary-container" />
               <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">Current</span>
@@ -225,9 +392,13 @@ const About = () => {
             <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Concordia University</h3>
             <p className="text-on-surface-variant font-sans text-sm mb-2">Master of Computer Science</p>
             <p className="text-primary font-bold text-lg">GPA 3.3</p>
-          </div>
+          </motion.div>
 
-          <div className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/20 transition-all duration-300 group">
+          <motion.div 
+            variants={slideInRight}
+            whileHover={{ scale: 1.02, x: -10 }}
+            className="p-8 bg-surface-container-low rounded-xl border border-outline-variant/10 hover:border-primary/20 transition-all duration-300 group cursor-default"
+          >
             <div className="flex justify-between items-start mb-4">
               <Award className="w-8 h-8 text-primary-container" />
               <span className="text-[10px] font-bold bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full uppercase tracking-widest">Completed</span>
@@ -235,8 +406,8 @@ const About = () => {
             <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Charusat University</h3>
             <p className="text-on-surface-variant font-sans text-sm mb-2">B.Tech in Computer Science</p>
             <p className="text-primary font-bold text-lg">9.5 CGPA</p>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -265,32 +436,55 @@ const Experience = () => {
   ];
 
   return (
-    <section className="py-32 bg-surface-container-lowest relative" id="experience">
+    <section className="py-32 bg-surface-container-lowest relative overflow-hidden" id="experience">
       <div className="max-w-screen-xl mx-auto px-6">
-        <div className="space-y-4 mb-20">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+          className="space-y-4 mb-20"
+        >
           <span className="text-primary font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Trajectory</span>
-          <h2 className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter leading-tight max-w-3xl">Professional Research & Industry Experience</h2>
-        </div>
+          <TextReveal text="Professional Research & Industry Experience" className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter leading-tight max-w-3xl" />
+        </motion.div>
 
         <div className="relative space-y-12">
-          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-outline-variant/20 hidden md:block"></div>
+          {/* Animated vertical line */}
+          <motion.div 
+            initial={{ height: 0 }}
+            whileInView={{ height: "100%" }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+            className="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-outline-variant/20 hidden md:block origin-top"
+          />
           
           {experiences.map((exp, index) => (
-            <div key={index} className={cn(
-              "relative flex flex-col md:flex-row md:justify-between items-center group",
-              index % 2 !== 0 && "md:flex-row-reverse"
-            )}>
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-150px" }}
+              variants={index % 2 === 0 ? slideInLeft : slideInRight}
+              key={index} 
+              className={cn(
+                "relative flex flex-col md:flex-row md:justify-between items-center group",
+                index % 2 !== 0 && "md:flex-row-reverse"
+              )}
+            >
               <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-surface-container-highest border-4 border-background group-hover:bg-primary transition-colors duration-300 z-10"></div>
               
-              <div className="w-full md:w-[45%] bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 hover:bg-surface-container transition-colors duration-300">
+              <motion.div 
+                whileHover={{ scale: 1.02, y: -5 }}
+                className="w-full md:w-[45%] bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 hover:bg-surface-container transition-all shadow-md hover:shadow-2xl duration-300"
+              >
                 <span className="text-[10px] font-bold text-primary font-sans tracking-widest uppercase">{exp.date}</span>
                 <h3 className="text-2xl font-bold text-on-surface mt-2">{exp.title}</h3>
                 <p className="text-on-surface-variant font-medium mb-4">{exp.company}</p>
                 <p className="text-sm font-sans leading-relaxed text-on-surface-variant/80">{exp.description}</p>
-              </div>
+              </motion.div>
               
               <div className="hidden md:block w-[45%]"></div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -331,31 +525,45 @@ const Work = () => {
   ];
 
   return (
-    <section className="py-32 px-6 bg-surface" id="work">
+    <section className="py-32 px-6 bg-surface overflow-hidden" id="work">
       <div className="max-w-screen-xl mx-auto">
-        <div className="space-y-4 mb-16">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={fadeInUp}
+          className="space-y-4 mb-16"
+        >
           <span className="text-primary font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Selected Work</span>
-          <h2 className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter">Impactful Solutions</h2>
-        </div>
+          <TextReveal text="Impactful Solutions" className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter" />
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={staggerContainer}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {projects.map((project, index) => (
-            <div 
+            <motion.div 
+              variants={fadeInUp}
+              whileHover={{ scale: 1.02 }}
               key={index} 
               className={cn(
-                "group relative overflow-hidden rounded-2xl bg-surface-container-low border border-outline-variant/10 transition-all duration-500 hover:scale-[1.01] hover:shadow-2xl",
+                "group relative overflow-hidden rounded-2xl bg-surface-container-low border border-outline-variant/10 shadow-lg hover:shadow-2xl transition-shadow cursor-none",
                 project.large && "lg:col-span-2"
               )}
             >
               <div className={cn("overflow-hidden relative", project.large ? "h-96" : "h-64")}>
-                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-surface-container-low to-transparent z-10 pointer-events-none"></div>
                 <img 
                   src={project.image} 
                   alt={project.title}
                   referrerPolicy="no-referrer"
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700" 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 pointer-events-none" 
                 />
-                <div className="absolute top-6 left-6 z-20 flex gap-2">
+                <div className="absolute top-6 left-6 z-20 flex gap-2 pointer-events-none">
                   {project.badges?.map((badge) => (
                     <span key={badge} className="bg-primary-container text-white text-[10px] font-bold uppercase tracking-widest px-4 py-1.5 rounded-full">
                       {badge}
@@ -363,7 +571,7 @@ const Work = () => {
                   ))}
                 </div>
               </div>
-              <div className="p-8 space-y-4">
+              <div className="p-8 space-y-4 pointer-events-none">
                 <h3 className="text-2xl font-bold text-on-surface group-hover:text-primary transition-colors">{project.title}</h3>
                 <p className="text-on-surface-variant font-sans text-sm leading-relaxed">
                   {project.description}
@@ -374,20 +582,31 @@ const Work = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
 
           {/* Achievements Grid */}
-          <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerContainer}
+            className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-8"
+          >
             {achievements.map((item, index) => (
-              <div key={index} className="p-8 bg-surface-container-high rounded-2xl border border-outline-variant/5 hover:border-primary/20 transition-all">
-                <item.icon className="w-8 h-8 text-primary mb-4" />
-                <h4 className="text-lg font-bold text-on-surface">{item.title}</h4>
-                <p className="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1 font-bold">{item.subtitle}</p>
-              </div>
+              <Magnetic key={index}>
+                <motion.div 
+                  variants={fadeInUp}
+                  className="p-8 h-full w-full bg-surface-container-high rounded-2xl border border-outline-variant/5 hover:border-primary/20 transition-all cursor-default block"
+                >
+                  <item.icon className="w-8 h-8 text-primary mb-4 pointer-events-none" />
+                  <h4 className="text-lg font-bold text-on-surface pointer-events-none">{item.title}</h4>
+                  <p className="text-[10px] text-on-surface-variant uppercase tracking-widest mt-1 font-bold pointer-events-none">{item.subtitle}</p>
+                </motion.div>
+              </Magnetic>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
@@ -395,80 +614,116 @@ const Work = () => {
 
 const Contact = () => {
   return (
-    <section className="py-32 px-6 bg-surface-container-lowest" id="contact">
+    <section className="py-32 px-6 bg-surface-container-lowest overflow-hidden" id="contact">
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-          <div className="space-y-12">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideInLeft}
+            className="space-y-12"
+          >
             <div className="space-y-4">
               <span className="text-primary font-sans text-[10px] font-bold uppercase tracking-[0.3em]">Connect</span>
-              <h2 className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter leading-tight">Let's build the next generation of intelligent systems.</h2>
+              <TextReveal text="Let's build the next generation of intelligent systems." className="text-4xl md:text-6xl font-bold text-on-surface tracking-tighter leading-tight" />
             </div>
 
             <div className="space-y-8">
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10">
-                  <Mail className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Email</p>
-                  <a href="mailto:devpateldata@gmail.com" className="text-lg font-medium text-on-surface hover:text-primary transition-colors">devpateldata@gmail.com</a>
-                </div>
-              </div>
+              <Magnetic>
+                <motion.a href="mailto:devpateldata@gmail.com" className="flex items-center gap-6 p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-300 block">
+                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 pointer-events-none">
+                    <Mail className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="pointer-events-none">
+                    <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Email</p>
+                    <span className="text-lg font-medium text-on-surface hover:text-primary transition-colors">devpateldata@gmail.com</span>
+                  </div>
+                </motion.a>
+              </Magnetic>
 
-              <div className="flex items-center gap-6">
-                <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10">
-                  <Phone className="w-5 h-5 text-primary" />
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Phone</p>
-                  <a href="tel:+14389932978" className="text-lg font-medium text-on-surface hover:text-primary transition-colors">+1 (438)-993-2978</a>
-                </div>
-              </div>
+              <Magnetic>
+                <motion.a href="tel:+14389932978" className="flex items-center gap-6 p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-300 block">
+                  <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 pointer-events-none">
+                    <Phone className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="pointer-events-none">
+                    <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Phone</p>
+                    <span className="text-lg font-medium text-on-surface hover:text-primary transition-colors">+1 (438)-993-2978</span>
+                  </div>
+                </motion.a>
+              </Magnetic>
             </div>
 
-            <div className="flex items-center gap-4 pt-4">
-              <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all">
-                <Github className="w-4 h-4" />
-              </a>
-              <a href="#" className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all">
-                <Linkedin className="w-4 h-4" />
-              </a>
+            <div className="flex items-center gap-4 pt-4 px-4">
+              <Magnetic>
+                <motion.a 
+                  href="#" 
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
+                >
+                  <Github className="w-5 h-5 pointer-events-none" />
+                </motion.a>
+              </Magnetic>
+              <Magnetic>
+                <motion.a 
+                  href="#" 
+                  className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
+                >
+                  <Linkedin className="w-5 h-5 pointer-events-none" />
+                </motion.a>
+              </Magnetic>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="bg-surface p-8 rounded-2xl border border-outline-variant/10">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={slideInRight}
+            className="bg-surface p-8 rounded-2xl border border-outline-variant/10"
+          >
             <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
+                <div className="space-y-2 relative group focus-within:z-10">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Full Name</label>
                   <input 
                     type="text" 
                     placeholder="Dev Patel"
-                    className="w-full bg-surface-container-low border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4"
+                    className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
                   />
+                  <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
                 </div>
-                <div className="space-y-2">
+                <div className="space-y-2 relative group focus-within:z-10">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Email Address</label>
                   <input 
                     type="email" 
                     placeholder="dev@example.com"
-                    className="w-full bg-surface-container-low border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4"
+                    className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
                   />
+                  <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
                 </div>
               </div>
-              <div className="space-y-2">
+              <div className="space-y-2 relative group focus-within:z-10">
                 <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Your Message</label>
                 <textarea 
                   rows={4}
                   placeholder="Briefly describe your project or inquiry..."
-                  className="w-full bg-surface-container-low border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4"
+                  className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
                 ></textarea>
+                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
               </div>
-              <button className="w-full py-5 neural-gradient text-white font-display font-bold text-lg rounded-md hover:shadow-[0_10px_30px_rgba(0,112,243,0.3)] transition-all transform active:scale-[0.98]">
-                Send Message
-              </button>
+              
+              <Magnetic>
+                <motion.button 
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-5 neural-gradient text-white font-display font-bold text-lg hover:shadow-[0_10px_30px_rgba(0,112,243,0.3)] transition-shadow block"
+                >
+                  <span className="pointer-events-none inline-block">Send Message</span>
+                </motion.button>
+              </Magnetic>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>
@@ -478,24 +733,34 @@ const Contact = () => {
 const Footer = () => {
   return (
     <footer className="w-full py-12 px-6 bg-surface-container-lowest border-t border-outline-variant/10">
-      <div className="flex flex-col items-center gap-6 text-center w-full max-w-screen-xl mx-auto">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        className="flex flex-col items-center gap-6 text-center w-full max-w-screen-xl mx-auto"
+      >
         <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL // NEURAL EDITORIAL</div>
         <div className="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/60 font-bold">
-          <a href="#" className="hover:text-primary transition-colors">GitHub</a>
-          <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
-          <a href="#" className="hover:text-primary transition-colors">ResearchGate</a>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">ResearchGate</motion.a></Magnetic>
         </div>
         <div className="font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/40 font-bold">
-          © 2024 DEV PATEL // NEURAL EDITORIAL
+          © {new Date().getFullYear()} DEV PATEL // NEURAL EDITORIAL
         </div>
-      </div>
+      </motion.div>
     </footer>
   );
 };
 
 export default function App() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
-    <div className="min-h-screen bg-background selection:bg-primary-container selection:text-white">
+    <div className="min-h-screen bg-background selection:bg-primary-container selection:text-white md:cursor-none">
+      <CustomCursor />
       <Navbar />
       <main>
         <Hero />
