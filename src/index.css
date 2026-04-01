@@ -31,6 +31,18 @@
   h1, h2, h3, h4 {
     @apply font-display text-on-surface tracking-tighter;
   }
+
+  /* Override browser autofill styling for dark theme */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover, 
+  input:-webkit-autofill:focus, 
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--color-on-surface);
+    -webkit-box-shadow: 0 0 0px 1000px var(--color-surface-container-low) inset;
+    transition: background-color 5000s ease-in-out 0s;
+  }
 }
 
 .neural-gradient {

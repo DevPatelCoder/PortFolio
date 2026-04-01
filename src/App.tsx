@@ -687,39 +687,36 @@ const Contact = () => {
             <form action="https://formsubmit.co/d.patel1502.cse@gmail.com" method="POST" className="space-y-6">
               <input type="hidden" name="_captcha" value="false" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="space-y-2 relative group focus-within:z-10">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Full Name</label>
+                <div className="space-y-2 flex flex-col group">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/80 ml-1">Full Name</label>
                   <input 
                     type="text" 
                     name="name"
                     required
                     placeholder="Dev Patel"
-                    className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl focus:border-primary focus:bg-primary/5 focus:ring-1 focus:ring-primary/30 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all p-4 outline-none"
                   />
-                  <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
                 </div>
-                <div className="space-y-2 relative group focus-within:z-10">
-                  <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Email Address</label>
+                <div className="space-y-2 flex flex-col group">
+                  <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/80 ml-1">Email Address</label>
                   <input 
                     type="email" 
                     name="email"
                     required
                     placeholder="dev@example.com"
-                    className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
+                    className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl focus:border-primary focus:bg-primary/5 focus:ring-1 focus:ring-primary/30 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all p-4 outline-none"
                   />
-                  <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
                 </div>
               </div>
-              <div className="space-y-2 relative group focus-within:z-10">
-                <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Your Message</label>
+              <div className="space-y-2 flex flex-col group">
+                <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/80 ml-1">Your Message</label>
                 <textarea 
                   name="message"
                   required
                   rows={4}
                   placeholder="Briefly describe your project or inquiry..."
-                  className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
+                  className="w-full bg-surface-container-low border border-outline-variant/30 rounded-xl focus:border-primary focus:bg-primary/5 focus:ring-1 focus:ring-primary/30 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all p-4 outline-none resize-none"
                 ></textarea>
-                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-primary scale-x-0 group-focus-within:scale-x-100 transition-transform origin-left z-20" />
               </div>
               
               <Magnetic>
@@ -727,10 +724,10 @@ const Contact = () => {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-transparent border border-outline-variant/50 text-on-surface font-display font-bold text-lg rounded-xl hover:border-primary hover:bg-primary/5 hover:text-primary transition-all flex items-center justify-center gap-3 overflow-hidden group"
+                  className="w-full py-4 mt-2 neural-gradient text-white font-display font-bold text-lg rounded-xl shadow-[0_4px_14px_0_rgba(0,112,243,0.39)] hover:shadow-[0_6px_20px_rgba(0,112,243,0.23)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3 overflow-hidden group"
                 >
-                  <span className="pointer-events-none">Send Message</span>
-                  <Mail className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  <span className="pointer-events-none drop-shadow-md">Send Message</span>
+                  <Mail className="w-5 h-5 drop-shadow-md pointer-events-none" />
                 </motion.button>
               </Magnetic>
             </form>
