@@ -41,7 +41,7 @@ const CustomCursor = () => {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 w-8 h-8 bg-white rounded-full mix-blend-difference pointer-events-none z-[9999] hidden md:flex items-center justify-center"
+      className="fixed top-0 left-0 w-8 h-8 border border-primary/30 bg-primary/5 rounded-full pointer-events-none z-[9999] hidden md:flex items-center justify-center backdrop-blur-sm shadow-sm"
       style={{
         translateX: cursorXSpring,
         translateY: cursorYSpring,
@@ -49,7 +49,7 @@ const CustomCursor = () => {
         y: "-50%",
       }}
     >
-      <div className="w-1 h-1 bg-black rounded-full" />
+      <div className="w-1.5 h-1.5 bg-primary/80 rounded-full" />
     </motion.div>
   );
 };
