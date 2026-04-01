@@ -724,7 +724,7 @@ const Contact = () => {
                   type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 mt-2 neural-gradient text-white font-display font-bold text-lg rounded-xl shadow-[0_4px_14px_0_rgba(0,112,243,0.39)] hover:shadow-[0_6px_20px_rgba(0,112,243,0.23)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3 overflow-hidden group"
+                  className="w-full px-12 py-4 mt-2 neural-gradient text-white font-display font-bold text-lg rounded-xl shadow-[0_4px_14px_0_rgba(0,112,243,0.39)] hover:shadow-[0_6px_20px_rgba(0,112,243,0.23)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3 overflow-hidden group"
                 >
                   <span className="pointer-events-none drop-shadow-md">Send Message</span>
                   <Mail className="w-5 h-5 drop-shadow-md pointer-events-none" />
