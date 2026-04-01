@@ -747,14 +747,13 @@ const Footer = () => {
         viewport={{ once: true }}
         className="flex flex-col items-center gap-6 text-center w-full max-w-screen-xl mx-auto"
       >
-        <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL // NEURAL EDITORIAL</div>
+        <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL</div>
         <div className="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/60 font-bold">
           <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
           <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://www.linkedin.com/in/devpatel15" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
-          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">ResearchGate</motion.a></Magnetic>
         </div>
         <div className="font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/40 font-bold">
-          © {new Date().getFullYear()} DEV PATEL // NEURAL EDITORIAL
+          © {new Date().getFullYear()} DEV PATEL
         </div>
       </motion.div>
     </footer>
