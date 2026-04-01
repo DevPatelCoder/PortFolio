@@ -631,13 +631,13 @@ const Contact = () => {
 
             <div className="space-y-8">
               <Magnetic>
-                <motion.a href="mailto:devpateldata@gmail.com" className="flex items-center gap-6 p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-300 block">
+                <motion.a href="mailto:d.patel1502.cse@gmail.com" className="flex items-center gap-6 p-4 rounded-xl hover:bg-surface-container-low transition-colors duration-300 block">
                   <div className="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center border border-outline-variant/10 pointer-events-none">
                     <Mail className="w-5 h-5 text-primary" />
                   </div>
                   <div className="pointer-events-none">
                     <p className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold">Email</p>
-                    <span className="text-lg font-medium text-on-surface hover:text-primary transition-colors">devpateldata@gmail.com</span>
+                    <span className="text-lg font-medium text-on-surface hover:text-primary transition-colors">d.patel1502.cse@gmail.com</span>
                   </div>
                 </motion.a>
               </Magnetic>
@@ -684,12 +684,15 @@ const Contact = () => {
             variants={slideInRight}
             className="bg-surface p-8 rounded-2xl border border-outline-variant/10"
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form action="https://formsubmit.co/d.patel1502.cse@gmail.com" method="POST" className="space-y-6">
+              <input type="hidden" name="_captcha" value="false" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2 relative group focus-within:z-10">
                   <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Full Name</label>
                   <input 
                     type="text" 
+                    name="name"
+                    required
                     placeholder="Dev Patel"
                     className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
                   />
@@ -699,6 +702,8 @@ const Contact = () => {
                   <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Email Address</label>
                   <input 
                     type="email" 
+                    name="email"
+                    required
                     placeholder="dev@example.com"
                     className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
                   />
@@ -708,6 +713,8 @@ const Contact = () => {
               <div className="space-y-2 relative group focus-within:z-10">
                 <label className="text-[10px] uppercase tracking-widest font-bold text-on-surface-variant/60 ml-1">Your Message</label>
                 <textarea 
+                  name="message"
+                  required
                   rows={4}
                   placeholder="Briefly describe your project or inquiry..."
                   className="w-full bg-transparent border-0 border-b border-outline-variant/30 focus:border-primary focus:ring-0 text-on-surface font-sans placeholder:text-on-surface-variant/30 transition-all py-4 relative z-20"
@@ -717,11 +724,13 @@ const Contact = () => {
               
               <Magnetic>
                 <motion.button 
+                  type="submit"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className="w-full py-5 neural-gradient text-white font-display font-bold text-lg hover:shadow-[0_10px_30px_rgba(0,112,243,0.3)] transition-shadow block"
+                  className="w-full py-4 bg-transparent border border-outline-variant/50 text-on-surface font-display font-bold text-lg rounded-xl hover:border-primary hover:bg-primary/5 hover:text-primary transition-all flex items-center justify-center gap-3 overflow-hidden group"
                 >
-                  <span className="pointer-events-none inline-block">Send Message</span>
+                  <span className="pointer-events-none">Send Message</span>
+                  <Mail className="w-5 h-5 opacity-50 group-hover:opacity-100 transition-opacity pointer-events-none" />
                 </motion.button>
               </Magnetic>
             </form>
