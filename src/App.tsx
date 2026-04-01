@@ -301,13 +301,13 @@ const Hero = () => {
 
         <div className="flex items-center justify-center gap-8 pt-8 opacity-60">
           <Magnetic>
-            <motion.a whileHover={{ color: "var(--primary)" }} href="#" className="flex items-center gap-2 p-2">
+            <motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
               <Github className="w-5 h-5 pointer-events-none" />
               <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">GitHub</span>
             </motion.a>
           </Magnetic>
           <Magnetic>
-            <motion.a whileHover={{ color: "var(--primary)" }} href="#" className="flex items-center gap-2 p-2">
+            <motion.a whileHover={{ color: "var(--primary)" }} href="https://www.linkedin.com/in/devpatel15" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
               <Linkedin className="w-5 h-5 pointer-events-none" />
               <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">LinkedIn</span>
             </motion.a>
@@ -658,7 +658,8 @@ const Contact = () => {
             <div className="flex items-center gap-4 pt-4 px-4">
               <Magnetic>
                 <motion.a 
-                  href="#" 
+                  href="https://github.com/DevPatelCoder" 
+                  target="_blank" rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
                 >
                   <Github className="w-5 h-5 pointer-events-none" />
@@ -666,7 +667,8 @@ const Contact = () => {
               </Magnetic>
               <Magnetic>
                 <motion.a 
-                  href="#" 
+                  href="https://www.linkedin.com/in/devpatel15" 
+                  target="_blank" rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
                 >
                   <Linkedin className="w-5 h-5 pointer-events-none" />
@@ -741,8 +743,8 @@ const Footer = () => {
       >
         <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL // NEURAL EDITORIAL</div>
         <div className="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/60 font-bold">
-          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
-          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://www.linkedin.com/in/devpatel15" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
           <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="#" className="transition-colors block p-2">ResearchGate</motion.a></Magnetic>
         </div>
         <div className="font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/40 font-bold">
