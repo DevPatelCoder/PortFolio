@@ -498,7 +498,8 @@ const Work = () => {
       title: "Real Time OCR for Partially Blind",
       description: "A high-impact IoT integration utilizing computer vision for real-time text-to-audio conversion and instant language translation.",
       tags: ["IoT", "OpenCV", "TTS"],
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuB6bvse94GCDA89BmypUB6WWUcRDLKQDSvESVyujeCd9tUTQHafdK_eDn7lBQwyIgIhXv8hnRvcugeq4isFKMHnQw3ORtKMKl7GpVVVMn-VEqbBRwKdz6nN38DkqBBurvC9Osd13Ghm49L2ec1AIBuRKIyxqHSrucvmcXhw4SavQin-jc4jCW8lB5xMpBY4z-GLxnHrCnoGEY24ItX3esRzqy41QGPoRwYnoRRd5PyevBA5Gk63kafTQ00h3l58s0ErTR3AAxNSyk2i",
+      image: "/smart_glasses_dark.png",
+      link: "https://www.qrcodechimp.com/page/mvp-dkd?v=chk1706635903",
       badges: ["🏆 Funded ₹1L", "i-hub Gujarat"],
       large: true
     },
@@ -545,13 +546,17 @@ const Work = () => {
           variants={staggerContainer}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project, index) => (
-            <motion.div 
+          {projects.map((project: any, index) => {
+            const isLink = !!project.link;
+            const Wrapper: any = isLink ? motion.a : motion.div;
+            return (
+            <Wrapper 
+              {...(isLink ? { href: project.link, target: "_blank", rel: "noopener noreferrer" } : {})}
               variants={fadeInUp}
               whileHover={{ scale: 1.02 }}
               key={index} 
               className={cn(
-                "group relative overflow-hidden rounded-2xl bg-surface-container-low border border-outline-variant/10 shadow-lg hover:shadow-2xl transition-shadow cursor-none",
+                "group relative overflow-hidden rounded-2xl bg-surface-container-low border border-outline-variant/10 shadow-lg hover:shadow-2xl transition-shadow cursor-none block",
                 project.large && "lg:col-span-2"
               )}
             >
@@ -582,8 +587,8 @@ const Work = () => {
                   ))}
                 </div>
               </div>
-            </motion.div>
-          ))}
+            </Wrapper>
+          )})}
 
           {/* Achievements Grid */}
           <motion.div 
