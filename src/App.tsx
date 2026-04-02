@@ -522,8 +522,8 @@ const Work = () => {
   ];
 
   const achievements = [
-    { title: "AZADI KA AMRIT MAHOTSAV", subtitle: "Hackathon Winner", icon: Award },
-    { title: "Top 12 Finalist HackX", subtitle: "Innovation Lead", icon: Brain },
+    { title: "AZADI KA AMRIT MAHOTSAV", subtitle: "State/Province Level Hackathon Winner", icon: Award },
+    { title: "Top 12 Finalist HackX", subtitle: "National Level Hackathon", icon: Brain },
     { title: "4th Place Codepie 3.0", subtitle: "Competitive Programming", icon: Cpu },
     { title: "National Basketball Rep", subtitle: "Elite Athletics", icon: Award },
   ];
