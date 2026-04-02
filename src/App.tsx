@@ -322,7 +322,7 @@ const About = () => {
   const skills = ["Python", "OCR", "YOLO", "Computer Vision", "Machine Learning", "Deep Learning", "Artificial Intelligence"];
 
   return (
-    <section className="py-32 px-6 bg-surface overflow-hidden" id="about">
+    <section className="py-32 px-6 bg-gradient-to-b from-background to-surface overflow-hidden" id="about">
       <div className="max-w-screen-xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
         {/* About Me */}
         <motion.div 
@@ -436,7 +436,7 @@ const Experience = () => {
   ];
 
   return (
-    <section className="py-32 bg-surface-container-lowest relative overflow-hidden" id="experience">
+    <section className="py-32 bg-gradient-to-b from-surface to-surface-container-lowest relative overflow-hidden" id="experience">
       <div className="max-w-screen-xl mx-auto px-6">
         <motion.div 
           initial="hidden"
@@ -525,7 +525,7 @@ const Work = () => {
   ];
 
   return (
-    <section className="py-32 px-6 bg-surface overflow-hidden" id="work">
+    <section className="py-32 px-6 bg-gradient-to-b from-surface-container-lowest to-surface overflow-hidden" id="work">
       <div className="max-w-screen-xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -614,7 +614,7 @@ const Work = () => {
 
 const Contact = () => {
   return (
-    <section className="py-32 px-6 bg-surface-container-lowest overflow-hidden" id="contact">
+    <section className="py-32 px-6 bg-gradient-to-b from-surface to-background overflow-hidden" id="contact">
       <div className="max-w-screen-xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
           <motion.div 
@@ -740,7 +740,7 @@ const Contact = () => {
 
 const Footer = () => {
   return (
-    <footer className="w-full py-12 px-6 bg-surface-container-lowest border-t border-outline-variant/10">
+    <footer className="w-full py-12 px-6 bg-background">
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
