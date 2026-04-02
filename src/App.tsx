@@ -263,7 +263,7 @@ const Hero = () => {
           whileHover={{ scale: 1.05 }}
           className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface-container-high border border-outline-variant/15 cursor-default mt-16"
         >
-          <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></span>
           <span className="text-[10px] font-sans uppercase tracking-[0.2em] text-on-surface-variant font-bold">Available for job</span>
         </motion.div>
 
