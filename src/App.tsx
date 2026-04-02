@@ -19,6 +19,7 @@ import {
   X
 } from 'lucide-react';
 import { cn } from './lib/utils';
+import smartGlassesImg from './assets/smart_glasses_dark.png';
 
 // --- Lumina Animation Components ---
 
@@ -498,7 +499,7 @@ const Work = () => {
       title: "Real Time OCR for Partially Blind",
       description: "A high-impact IoT integration utilizing computer vision for real-time text-to-audio conversion and instant language translation.",
       tags: ["IoT", "OpenCV", "TTS"],
-      image: "/smart_glasses_dark.png",
+      image: smartGlassesImg,
       link: "https://www.qrcodechimp.com/page/mvp-dkd?v=chk1706635903",
       badges: ["🏆 Funded ₹1L", "i-hub Gujarat"],
       large: true
