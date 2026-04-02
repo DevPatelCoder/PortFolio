@@ -402,7 +402,7 @@ const About = () => {
           >
             <div className="flex justify-between items-start mb-4">
               <Award className="w-8 h-8 text-primary-container" />
-              <span className="text-[10px] font-bold bg-surface-container-highest text-on-surface-variant px-3 py-1 rounded-full uppercase tracking-widest">Completed</span>
+              <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">Completed</span>
             </div>
             <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Charusat University</h3>
             <p className="text-on-surface-variant font-sans text-sm mb-2">B.Tech in Computer Science</p>
