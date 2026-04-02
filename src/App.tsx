@@ -509,13 +509,15 @@ const Work = () => {
       description: "Automated merit evaluation system using YOLO and custom OCR pipelines to digitize academic records with 99% accuracy.",
       tags: ["YOLO", "OCR", "Python"],
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBT28Oh0wl8ylltAQ-094FeE3XwvN0bL-4dfm0jeXClyv8hPQvfTrO60n1rgK9z9ZqQc-YuD3kgI6n3YH71eKeDNWB2LJwXoqVUZVhrOPsFcR44fzR7LhnrO4ZjOiirQDvMJpTy5SPGnNZCjmimD71H5LykMM6wn3Mo1oL6L5WSj04yc-K91aHmP1uZ4qlb9wqIgvUTMrEjIVXU07Z7VkBX-qBg9OK6kynZkXQNeITlP3M450oDnhGGwuLHFlveo-5A8RnZB3U2JUDI",
+      link: "https://github.com/DevPatelCoder/Smart-Marksheet-Scanner",
       badges: ["🥇 Hackathon Winner"]
     },
     {
       title: "Crowd Counting",
       description: "Real-time surveillance solution with YOLO for high-density crowd estimation in urban environments.",
       tags: ["YOLO", "Surveillance", "CV"],
-      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAH7Ovm7irUeagpDhDmBslWTim8eNfde0OgRfbZz-uBarj6VDuTX4kR6MO4-Uy9n_CnwC39d2bIQ9ZEeW-_XgAilRe70LZfvsANnCpDpL9kXaZK49pFkAExrGZ45HhBwHFeRiPoeH9BV7CJOM79KZxGUbp2HXMzlKqoujBuFExEyiLrpuitaXzH0MzuFzPpJ0vRLR0_9aUqexhUsvKnJNxhtFhSr_DD3le8gzcwCI7PVK7WoRIm4_yisFlS0HzBxEGUy9leGfGp8zyg"
+      image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAH7Ovm7irUeagpDhDmBslWTim8eNfde0OgRfbZz-uBarj6VDuTX4kR6MO4-Uy9n_CnwC39d2bIQ9ZEeW-_XgAilRe70LZfvsANnCpDpL9kXaZK49pFkAExrGZ45HhBwHFeRiPoeH9BV7CJOM79KZxGUbp2HXMzlKqoujBuFExEyiLrpuitaXzH0MzuFzPpJ0vRLR0_9aUqexhUsvKnJNxhtFhSr_DD3le8gzcwCI7PVK7WoRIm4_yisFlS0HzBxEGUy9leGfGp8zyg",
+      link: "https://github.com/DevPatelCoder/Crowd_Counting"
     }
   ];
 
