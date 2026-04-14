@@ -16,7 +16,8 @@ import {
   Brain,
   Cpu,
   Menu,
-  X
+  X,
+  Download
 } from 'lucide-react';
 import { cn } from './lib/utils';
 import smartGlassesImg from './assets/smart_glasses_dark.png';
@@ -281,11 +282,11 @@ const Hero = () => {
           Building intelligent systems — from cardiovascular diagnostics to real-time OCR for the visually impaired. Merging mathematical rigor with human-centric design.
         </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 flex-wrap">
           <Magnetic>
             <motion.a 
               href="#work" 
-              className="px-10 py-4 neural-gradient text-white font-display font-bold rounded-full hover:shadow-[0_0_30px_rgba(0,112,243,0.3)] transition-shadow block"
+              className="px-8 py-3 neural-gradient text-white font-display font-bold rounded-full hover:shadow-[0_0_30px_rgba(0,112,243,0.3)] transition-shadow block whitespace-nowrap"
             >
               View My Work
             </motion.a>
@@ -293,9 +294,19 @@ const Hero = () => {
           <Magnetic>
             <motion.a 
               href="#contact" 
-              className="px-10 py-4 bg-transparent border border-outline-variant/30 text-on-surface font-display font-bold rounded-full hover:bg-surface-container-high transition-colors block"
+              className="px-8 py-3 bg-transparent border border-outline-variant/30 text-on-surface font-display font-bold rounded-full hover:bg-surface-container-high transition-colors block whitespace-nowrap"
             >
               Contact Me
+            </motion.a>
+          </Magnetic>
+          <Magnetic>
+            <motion.a 
+              href="/resume.pdf" 
+              download="Dev_Patel_Resume.pdf"
+              className="px-8 py-3 bg-surface-container-high text-primary font-display font-bold rounded-full border border-primary/30 hover:bg-primary/10 transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
+            >
+              <Download className="w-5 h-5 pointer-events-none" />
+              <span className="pointer-events-none">Resume</span>
             </motion.a>
           </Magnetic>
         </div>
