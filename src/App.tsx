@@ -377,11 +377,6 @@ const About = () => {
                 </Magnetic>
               ))}
             </div>
-            <div className="pt-2">
-              <p className="text-[10px] text-on-surface-variant/80 uppercase tracking-widest font-bold">
-                Location: <span className="text-on-surface">Montreal, QC, Canada</span>
-              </p>
-            </div>
           </motion.div>
         </motion.div>
 
@@ -556,7 +551,6 @@ const Work = () => {
     { title: "Top 12 Finalist HackX", subtitle: "National-level Hackathon", icon: Brain },
     { title: "4th Rank Codepie 3.0", subtitle: "College-level Contest", icon: Cpu },
     { title: "$5,000 Startup Funding", subtitle: "i-Create + CSIC", icon: Award },
-    { title: "Patent Pending", subtitle: "Real-Time OCR", icon: Terminal },
   ];
 
   return (
