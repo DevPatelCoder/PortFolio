@@ -312,7 +312,7 @@ const Hero = () => {
 
         <div className="flex items-center justify-center gap-8 pt-8 opacity-60">
           <Magnetic>
-            <motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCode" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
+            <motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
               <Github className="w-5 h-5 pointer-events-none" />
               <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">GitHub</span>
             </motion.a>
@@ -533,7 +533,7 @@ const Work = () => {
       description: "Used advanced OCR techniques and similarity extraction to enable faster multi-document scanning with high throughput and precision. Reduced manual workforce by 50–60% and achieved near 100% accuracy via an automated scanning pipeline.",
       tags: ["Python", "OCR", "Automation"],
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBT28Oh0wl8ylltAQ-094FeE3XwvN0bL-4dfm0jeXClyv8hPQvfTrO60n1rgK9z9ZqQc-YuD3kgI6n3YH71eKeDNWB2LJwXoqVUZVhrOPsFcR44fzR7LhnrO4ZjOiirQDvMJpTy5SPGnNZCjmimD71H5LykMM6wn3Mo1oL6L5WSj04yc-K91aHmP1uZ4qlb9wqIgvUTMrEjIVXU07Z7VkBX-qBg9OK6kynZkXQNeITlP3M450oDnhGGwuLHFlveo-5A8RnZB3U2JUDI",
-      link: "https://github.com/DevPatelCode/Smart-Marksheet-Scanner",
+      link: "https://github.com/DevPatelCoder/Smart-Marksheet-Scanner",
       badges: ["🥇 100% Accuracy"]
     },
     {
@@ -541,7 +541,7 @@ const Work = () => {
       description: "Achieved up to 90% confidence accuracy using advanced object detection techniques. Designed for real-time monitoring and surveillance, enabling security analysis at large public events.",
       tags: ["CV", "YOLO", "Deep Learning"],
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAH7Ovm7irUeagpDhDmBslWTim8eNfde0OgRfbZz-uBarj6VDuTX4kR6MO4-Uy9n_CnwC39d2bIQ9ZEeW-_XgAilRe70LZfvsANnCpDpL9kXaZK49pFkAExrGZ45HhBwHFeRiPoeH9BV7CJOM79KZxGUbp2HXMzlKqoujBuFExEyiLrpuitaXzH0MzuFzPpJ0vRLR0_9aUqexhUsvKnJNxhtFhSr_DD3le8gzcwCI7PVK7WoRIm4_yisFlS0HzBxEGUy9leGfGp8zyg",
-      link: "https://github.com/DevPatelCode/Crowd_Counting"
+      link: "https://github.com/DevPatelCoder/Crowd_Counting"
     }
   ];
 
@@ -690,7 +690,7 @@ const Contact = () => {
             <div className="flex items-center gap-4 pt-4 px-4">
               <Magnetic>
                 <motion.a 
-                  href="https://github.com/DevPatelCode" 
+                  href="https://github.com/DevPatelCoder" 
                   target="_blank" rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
                 >
@@ -781,7 +781,7 @@ const Footer = () => {
       >
         <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL</div>
         <div className="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/60 font-bold">
-          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCode" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
           <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://www.linkedin.com/in/devpatel15" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
         </div>
         <div className="font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/40 font-bold">
