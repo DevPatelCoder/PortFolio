@@ -302,7 +302,7 @@ const Hero = () => {
           <Magnetic>
             <motion.a 
               href={`${import.meta.env.BASE_URL}resume.pdf`} 
-              download="Dev_Patel_Resume.pdf"
+              target="_blank" rel="noopener noreferrer"
               className="px-8 py-3 bg-surface-container-high text-primary font-display font-bold rounded-full border border-primary/30 hover:bg-primary/10 transition-colors flex items-center justify-center gap-2 whitespace-nowrap"
             >
               <Download className="w-5 h-5 pointer-events-none" />
