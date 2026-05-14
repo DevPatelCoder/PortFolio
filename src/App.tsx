@@ -275,11 +275,11 @@ const Hero = () => {
         />
 
         <p className="text-2xl md:text-3xl font-display text-primary font-light tracking-tight mt-4">
-          AI/ML Engineer & Computer Vision Specialist
+          AI/ML Engineer | Computer Vision & NLP Specialist | MSc Computer Science @ Concordia University
         </p>
 
         <p className="max-w-2xl mx-auto text-on-surface-variant font-sans text-lg leading-relaxed">
-          Building intelligent systems — from cardiovascular diagnostics to real-time OCR for the visually impaired. Merging mathematical rigor with human-centric design.
+          Based in Montreal, QC, Canada
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4 flex-wrap">
@@ -313,7 +313,7 @@ const Hero = () => {
 
         <div className="flex items-center justify-center gap-8 pt-8 opacity-60">
           <Magnetic>
-            <motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
+            <motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCode" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 p-2">
               <Github className="w-5 h-5 pointer-events-none" />
               <span className="text-[10px] uppercase tracking-widest font-bold pointer-events-none">GitHub</span>
             </motion.a>
@@ -331,7 +331,12 @@ const Hero = () => {
 };
 
 const About = () => {
-  const skills = ["Python", "OCR", "YOLO", "Computer Vision", "Machine Learning", "Deep Learning", "Artificial Intelligence"];
+  const skills = [
+    "Python", "Java", "SQL", "C", "C++", "HTML", "CSS",
+    "YOLO", "TensorFlow", "PyTorch", "OpenCV", "scikit-learn", "Hugging Face Transformers", "LangChain / LlamaIndex", "FastAPI / Flask",
+    "Computer Vision", "OCR Technologies", "Machine Learning", "Deep Learning", "Big Data Analytics", "NLP", "LLMs & Generative AI",
+    "GitHub", "Docker", "AWS (S3, EC2)", "Google Cloud", "Azure Blob Storage", "MySQL / PostgreSQL", "MongoDB", "Linux"
+  ];
 
   return (
     <section className="py-32 px-6 bg-gradient-to-b from-background to-surface overflow-hidden" id="about">
@@ -351,10 +356,10 @@ const About = () => {
 
           <motion.div variants={slideInLeft} className="prose prose-invert max-w-none text-on-surface-variant font-sans leading-relaxed space-y-6">
             <p className="text-xl">
-              Currently pursuing a <span className="text-on-surface font-semibold">Master of Computer Science at Concordia University</span> (GPA 3.3). My journey is fueled by a dual passion for technical precision and human-centric assistive technology.
+              I am a <span className="text-on-surface font-semibold">Master of Science in Computer Science</span> student at Concordia University (GPA: 3.3), specializing in AI/ML, Computer Vision, and Natural Language Processing.
             </p>
             <p>
-              With a solid foundation from my B.Tech at Charusat (9.5 CGPA), I specialize in AI/ML, Computer Vision, and Deep Learning. Beyond the code, I am a national-level basketball player, a background that instills discipline, teamwork, and a competitive drive in every research lab and development sprint I lead.
+              I hold a B.Tech in Computer Science & Engineering from Charusat University (CGPA: 9.5). I am also the co-founder of MVP – Missionary Visionary Products, where I engineered an award-winning assistive wearable device for the partially blind. I have research experience from IIT Bhubaneswar and currently serve as Vice-President of the Graduate Students' Association at Concordia, representing 5,000+ graduate students.
             </p>
           </motion.div>
 
@@ -374,7 +379,7 @@ const About = () => {
             </div>
             <div className="pt-2">
               <p className="text-[10px] text-on-surface-variant/80 uppercase tracking-widest font-bold">
-                Certifications: <span className="text-on-surface">Machine Learning, Artificial Intelligence</span>
+                Location: <span className="text-on-surface">Montreal, QC, Canada</span>
               </p>
             </div>
           </motion.div>
@@ -399,10 +404,11 @@ const About = () => {
           >
             <div className="flex justify-between items-start mb-4">
               <School className="w-8 h-8 text-primary-container" />
-              <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">Completed</span>
+              <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">2024 - 2026</span>
             </div>
             <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Concordia University</h3>
-            <p className="text-on-surface-variant font-sans text-sm mb-2">Master of Computer Science</p>
+            <p className="text-on-surface-variant font-sans text-sm mb-1">Master of Science in Computer Science</p>
+            <p className="text-on-surface-variant/60 font-sans text-xs mb-2">Montreal, Quebec, Canada</p>
             <p className="text-primary font-bold text-lg">GPA 3.3</p>
           </motion.div>
 
@@ -413,10 +419,11 @@ const About = () => {
           >
             <div className="flex justify-between items-start mb-4">
               <Award className="w-8 h-8 text-primary-container" />
-              <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">Completed</span>
+              <span className="text-[10px] font-bold bg-primary-container/20 text-primary px-3 py-1 rounded-full uppercase tracking-widest">2020 - 2024</span>
             </div>
             <h3 className="text-xl font-bold text-on-surface group-hover:text-primary transition-colors">Charusat University</h3>
-            <p className="text-on-surface-variant font-sans text-sm mb-2">B.Tech in Computer Science</p>
+            <p className="text-on-surface-variant font-sans text-sm mb-1">B.Tech in Computer Science & Engineering</p>
+            <p className="text-on-surface-variant/60 font-sans text-xs mb-2">Changa, Gujarat, India</p>
             <p className="text-primary font-bold text-lg">9.5 CGPA</p>
           </motion.div>
         </motion.div>
@@ -428,22 +435,34 @@ const About = () => {
 const Experience = () => {
   const experiences = [
     {
-      date: "Feb - Mar 2024",
+      date: "June 2025 – June 2026",
+      title: "Vice-President",
+      company: "GSA Concordia (Montreal, QC)",
+      description: "Elected VP of Concordia's Graduate Students' Association; advocated for 5,000+ graduate students across academic, financial, and welfare domains at the university level."
+    },
+    {
+      date: "March 2023 – Present",
+      title: "Co-Founder",
+      company: "MVP – Missionary Visionary Products",
+      description: "Engineered an assistive wearable device using a custom ESP32 module, cloud infrastructure, Python, and ML — capturing visual input via camera, processing it in real-time, and delivering multilingual audio output; mountable on any standard spectacle frame. Secured grants of $2,500 from i-Create and $2,500 from CSIC."
+    },
+    {
+      date: "Feb 2024 – Apr 2024",
       title: "Research Intern",
       company: "IIT Bhubaneswar",
-      description: "Developed Deep Learning architectures for ECG detection, pushing the boundaries of cardiovascular diagnostics through neural signal analysis."
+      description: "Developed a CRT-based convolution algorithm converting 1D cyclic convolutions into multi-dimensional equivalents, reducing multiplication complexity from O(N²) to 2N−K — up to 3× faster than direct convolution for ECG-length sequences. Benchmarked the algorithm on ECG datasets via end-to-end simulation."
     },
     {
-      date: "2023 - 2024",
-      title: "UGSF (Undergrad Research Fellow)",
-      company: "Charusat University",
-      description: "Managed Academic R&D projects and served as Lab Coordinator, facilitating cutting-edge research environments for peer-to-peer technical growth."
+      date: "Jan 2022 – May 2022",
+      title: "Software Engineering Intern",
+      company: "3-Fit (Start-Up)",
+      description: "Researched competitive apps in similar domains to identify strengths and weaknesses. Integrated multiple third-party APIs to enhance product functionality."
     },
     {
-      date: "May - July 2022",
-      title: "Intern",
-      company: "3-Fit",
-      description: "Conducted deep app architecture analysis and implemented core API integrations for performance monitoring systems."
+      date: "Academic",
+      title: "Teaching Assistant",
+      company: "Concordia University & Charusat University",
+      description: "Concordia University: Data Structures (during Master's). Charusat University: AI/ML & UGSF (during Bachelor's)."
     }
   ];
 
@@ -507,36 +526,37 @@ const Experience = () => {
 const Work = () => {
   const projects = [
     {
-      title: "Real Time OCR for Partially Blind",
-      description: "A high-impact IoT integration utilizing computer vision for real-time text-to-audio conversion and instant language translation.",
-      tags: ["IoT", "OpenCV", "TTS"],
+      title: "Real-Time OCR for Partially Blind",
+      description: "Built an IoT wearable device that helps partially blind people read written text aloud, with multilingual translation support and end-to-end latency of ≤5 seconds. Used CRAFT for accurate text localization and AWS (S3, EC2) for scalable cloud processing. Secured $5,000 in funding.",
+      tags: ["IoT", "OCR", "NLP"],
       image: smartGlassesImg,
       link: "https://www.qrcodechimp.com/page/mvp-dkd?v=chk1706635903",
-      badges: ["🏆 Funded ₹1L", "i-hub Gujarat"],
+      badges: ["🏆 Funded $5,000", "Patent Pending"],
       large: true
     },
     {
       title: "Smart Mark Sheet Scanner",
-      description: "Automated merit evaluation system using YOLO and custom OCR pipelines to digitize academic records with 99% accuracy.",
-      tags: ["YOLO", "OCR", "Python"],
+      description: "Used advanced OCR techniques and similarity extraction to enable faster multi-document scanning with high throughput and precision. Reduced manual workforce by 50–60% and achieved near 100% accuracy via an automated scanning pipeline.",
+      tags: ["Python", "OCR", "Automation"],
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuBT28Oh0wl8ylltAQ-094FeE3XwvN0bL-4dfm0jeXClyv8hPQvfTrO60n1rgK9z9ZqQc-YuD3kgI6n3YH71eKeDNWB2LJwXoqVUZVhrOPsFcR44fzR7LhnrO4ZjOiirQDvMJpTy5SPGnNZCjmimD71H5LykMM6wn3Mo1oL6L5WSj04yc-K91aHmP1uZ4qlb9wqIgvUTMrEjIVXU07Z7VkBX-qBg9OK6kynZkXQNeITlP3M450oDnhGGwuLHFlveo-5A8RnZB3U2JUDI",
-      link: "https://github.com/DevPatelCoder/Smart-Marksheet-Scanner",
-      badges: ["🥇 Hackathon Winner"]
+      link: "https://github.com/DevPatelCode/Smart-Marksheet-Scanner",
+      badges: ["🥇 100% Accuracy"]
     },
     {
       title: "Crowd Counting",
-      description: "Real-time surveillance solution with YOLO for high-density crowd estimation in urban environments.",
-      tags: ["YOLO", "Surveillance", "CV"],
+      description: "Achieved up to 90% confidence accuracy using advanced object detection techniques. Designed for real-time monitoring and surveillance, enabling security analysis at large public events.",
+      tags: ["CV", "YOLO", "Deep Learning"],
       image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAH7Ovm7irUeagpDhDmBslWTim8eNfde0OgRfbZz-uBarj6VDuTX4kR6MO4-Uy9n_CnwC39d2bIQ9ZEeW-_XgAilRe70LZfvsANnCpDpL9kXaZK49pFkAExrGZ45HhBwHFeRiPoeH9BV7CJOM79KZxGUbp2HXMzlKqoujBuFExEyiLrpuitaXzH0MzuFzPpJ0vRLR0_9aUqexhUsvKnJNxhtFhSr_DD3le8gzcwCI7PVK7WoRIm4_yisFlS0HzBxEGUy9leGfGp8zyg",
-      link: "https://github.com/DevPatelCoder/Crowd_Counting"
+      link: "https://github.com/DevPatelCode/Crowd_Counting"
     }
   ];
 
   const achievements = [
-    { title: "AZADI KA AMRIT MAHOTSAV", subtitle: "State/Province Level Hackathon Winner", icon: Award },
-    { title: "Top 12 Finalist HackX", subtitle: "National Level Hackathon", icon: Brain },
-    { title: "4th Place Codepie 3.0", subtitle: "Competitive Programming", icon: Cpu },
-    { title: "National Basketball Rep", subtitle: "Elite Athletics", icon: Award },
+    { title: "AZADI KA AMRIT MOHOTSAV", subtitle: "State-level Hackathon Winner", icon: Award },
+    { title: "Top 12 Finalist HackX", subtitle: "National-level Hackathon", icon: Brain },
+    { title: "4th Rank Codepie 3.0", subtitle: "College-level Contest", icon: Cpu },
+    { title: "$5,000 Startup Funding", subtitle: "i-Create + CSIC", icon: Award },
+    { title: "Patent Pending", subtitle: "Real-Time OCR", icon: Terminal },
   ];
 
   return (
@@ -677,7 +697,7 @@ const Contact = () => {
             <div className="flex items-center gap-4 pt-4 px-4">
               <Magnetic>
                 <motion.a 
-                  href="https://github.com/DevPatelCoder" 
+                  href="https://github.com/DevPatelCode" 
                   target="_blank" rel="noopener noreferrer"
                   className="w-12 h-12 flex items-center justify-center rounded-full bg-surface-container-low border border-outline-variant/10 hover:border-primary/40 hover:bg-surface-container transition-all"
                 >
@@ -768,7 +788,7 @@ const Footer = () => {
       >
         <div className="text-primary font-bold tracking-tighter text-xl font-display">DEV PATEL</div>
         <div className="flex gap-8 font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/60 font-bold">
-          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCoder" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
+          <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://github.com/DevPatelCode" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">GitHub</motion.a></Magnetic>
           <Magnetic><motion.a whileHover={{ color: "var(--primary)" }} href="https://www.linkedin.com/in/devpatel15" target="_blank" rel="noopener noreferrer" className="transition-colors block p-2">LinkedIn</motion.a></Magnetic>
         </div>
         <div className="font-sans text-[10px] tracking-[0.3em] uppercase text-on-surface-variant/40 font-bold">
